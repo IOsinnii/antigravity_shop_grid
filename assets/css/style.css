@@ -8,6 +8,7 @@
     --accent-color: #0056b3;
     --border-color: #dbe4ed;
     --hover-color: #e6ecf2;
+    --accent-text: #ffffff;
 
     /* Default Font */
     --font-family: 'Arial', sans-serif;
@@ -39,6 +40,7 @@ body.theme-forest {
     --accent-color: #81C784;
     --border-color: #3E463D;
     --hover-color: #3E463D;
+    --accent-text: #0e120e;
 }
 
 /* Theme: Soft Sage (Light) */
@@ -48,9 +50,10 @@ body.theme-sage {
     --bg-tertiary: #E8ECEB;
     --text-primary: #2F3E46;
     --text-secondary: #52796F;
-    --accent-color: #84A98C;
+    --accent-color: #476c52;
     --border-color: #CAD2C5;
     --hover-color: #E0E7E4;
+    --accent-text: #ffffff;
 }
 
 /* Theme: Obsidian */
@@ -63,6 +66,7 @@ body.theme-obsidian {
     --accent-color: #bb86fc;
     --border-color: #333;
     --hover-color: #2a2a2a;
+    --accent-text: #121212;
 
 }
 
@@ -78,6 +82,7 @@ body.theme-graphite {
     --accent-color: #8ab4d8;
     --border-color: #3a404b;
     --hover-color: #2d323b;
+    --accent-text: #12161a;
 }
 
 /* Theme: Paper — warm light, the "printed book" register. Cream background and
@@ -89,9 +94,10 @@ body.theme-paper {
     --bg-tertiary: #ebe5d6;
     --text-primary: #2e2a24;
     --text-secondary: #6b6353;
-    --accent-color: #8a6d3b;
+    --accent-color: #7a5f33;
     --border-color: #ddd5c2;
     --hover-color: #efe9dc;
+    --accent-text: #ffffff;
 }
 
 * {
@@ -494,7 +500,7 @@ body {
 
 .view-btn.active {
     background-color: var(--accent-color);
-    color: #000;
+    color: var(--accent-text);
     border-color: var(--accent-color);
     font-weight: 500;
 }
@@ -626,7 +632,7 @@ body {
 .sort-btn.active {
     background-color: var(--accent-color);
     border-color: var(--accent-color);
-    color: #fff;
+    color: var(--accent-text);
     /* Ensure text is readable on accent */
 }
 
@@ -727,7 +733,7 @@ body {
 
 .view-table .lecture-actions a:hover {
     background-color: var(--accent-color);
-    color: #000;
+    color: var(--accent-text);
 }
 
 /* Grid Layout (Card) */
@@ -806,7 +812,7 @@ body {
 
 .view-grid .btn-download:hover {
     background-color: var(--accent-color);
-    color: #000;
+    color: var(--accent-text);
 }
 
 /* Scrollbar Styling */
@@ -1036,7 +1042,7 @@ body.page {
     display: inline-block;
     padding: 0.5rem 1rem;
     background-color: var(--accent-color);
-    color: var(--bg-primary);
+    color: var(--accent-text);
     border-radius: 4px;
     text-decoration: none;
     font-size: 0.9rem;

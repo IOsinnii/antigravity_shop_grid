@@ -136,3 +136,16 @@ zero console errors.
 - Pipeline steps 8 (ffmpeg extraction, -19 LUFS loudnorm, manifest, --write-urls
   mode) and 9 (podcast RSS with iTunes tags) written and py_compile-checked in
   ../python-json-transformation/.
+
+### 2026-07-12 — WCAG contrast audit + --accent-text token
+`assets/css/style.css` (both here and backported to web-dev-antigravity):
+- Audited all 6 themes (WCAG 2.1 relative-luminance math, AA = 4.5:1 body text).
+  Text and secondary-text passed everywhere. Two accents failed as link/label color:
+  Sage `#84A98C` → 2.42:1 (real failure) and Paper `#8a6d3b` → 4.30:1 (marginal).
+  Replaced with same-hue darker values: Sage `#476c52`, Paper `#7a5f33` — both ≥4.5:1
+  on every background of their theme.
+- Darker accents flip which text is readable ON the accent, so hardcoded `#000`/`#fff`
+  on active buttons became wrong per-theme. Introduced a `--accent-text` design token
+  (white on light themes' dark accents; near-black on dark themes' light accents) and
+  replaced every hardcoded on-accent text color with it. This is the first proper
+  design token beyond the palette — the Phase-3 templates should continue the pattern.
