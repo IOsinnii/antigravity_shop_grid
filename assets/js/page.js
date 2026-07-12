@@ -121,6 +121,15 @@ function initVideoPage() {
     } else {
         readLink.style.display = 'none';
     }
+
+    // Audio card appears only when the database carries an audio_url for this
+    // lecture (Phase 2 pipeline fills these in; absent field = no audio yet)
+    if (lecture.audio_url) {
+        document.getElementById('audio-player').src = lecture.audio_url;
+        const dl = document.getElementById('audio-download');
+        dl.href = lecture.audio_url;
+        document.getElementById('audio-card').style.display = 'block';
+    }
 }
 
 // ---------- Lecture text page ----------

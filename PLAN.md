@@ -126,3 +126,13 @@ zero console errors.
   `5_fetch_transcripts.py` (yt-dlp; plain HTTP is blocked by YouTube's proof-of-origin
   token — verified empirically: timedtext returns empty 200), `6_subs_to_text.py`
   (json3/VTT → pause-based paragraphs, no invented punctuation), `7_generate_texts_index.py`.
+
+### 2026-07-12 — Phase 2 (site side): audio card on the video page
+`pages/video.html`, `assets/js/page.js`:
+- «Аудиозапись» card with a native <audio controls preload="none"> player and an
+  MP3 download link; renders only when the lecture record carries `audio_url`.
+  No data change yet — the field appears when pipeline step 8 runs (blocked on the
+  original video files and an R2 bucket; see PLAN_NEXT_PHASES.md decision points).
+- Pipeline steps 8 (ffmpeg extraction, -19 LUFS loudnorm, manifest, --write-urls
+  mode) and 9 (podcast RSS with iTunes tags) written and py_compile-checked in
+  ../python-json-transformation/.

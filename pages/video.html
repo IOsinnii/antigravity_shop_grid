@@ -30,6 +30,14 @@
                     allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
             </div>
 
+            <div id="audio-card" class="page-card" style="display: none;">
+                <h3 class="page-subtitle">Аудиозапись</h3>
+                <audio id="audio-player" controls preload="none" style="width: 100%;"></audio>
+                <div class="page-actions">
+                    <a id="audio-download" href="#" download class="btn-action btn-secondary">Скачать MP3</a>
+                </div>
+            </div>
+
             <div class="page-card">
                 <h1 id="video-title" class="page-title"></h1>
                 <div class="page-meta">
