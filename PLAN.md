@@ -186,3 +186,16 @@ Same fix applied to web-dev-antigravity.
   lectures/) remains the deployment decision — verification used symlinked assets.
 - Verified in browser: /lectures/100/ renders with theme, player, meta; view-source
   shows baked OG/JSON-LD; zero console errors.
+
+### 2026-07-12 — Phase 1 CLOSED: full-catalog auto transcripts
+`data/texts/` (+175 files, 6.5MB), `assets/js/texts-index.js`:
+- Final coverage: **179 of 194 lectures now have a readable text** (4 curated + 175
+  auto transcripts). 14 videos have no captions on YouTube at all; 2 (orders 56, 81)
+  hit a yt-dlp/SABR edge that needs a newer yt-dlp on Python ≥3.10 — left as `error`
+  in transcripts_report.json for the next pipeline run.
+- Older lectures' ASR lacks punctuation, newer ones have it — the draft banner covers
+  both honestly. Editorial follow-up (curation queue, possibly a punctuation pass) is
+  a standing decision point in PLAN_NEXT_PHASES.md.
+- Eleventy pages rebuilt: static lecture pages now link «Читать расшифровку
+  (черновик)» wherever a transcript exists.
+Verified: №150 (2020) and №1 (1995) render transcripts under the banner; console clean.
