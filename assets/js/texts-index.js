@@ -4,4 +4,4 @@
 const lectureTextOrders = [192, 219, 220, 221];
 
 // Orders with only an auto transcript (data/texts/transcript_<order>.json):
-const lectureTranscriptOrders = [];
+const lectureTranscriptOrders = [1, 2, 3, 4, 5, 6, 10, 11, 12];

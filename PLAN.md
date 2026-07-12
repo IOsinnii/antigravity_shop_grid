@@ -149,3 +149,12 @@ zero console errors.
   (white on light themes' dark accents; near-black on dark themes' light accents) and
   replaced every hardcoded on-accent text color with it. This is the first proper
   design token beyond the palette — the Phase-3 templates should continue the pattern.
+
+### 2026-07-12 — Phase 1 (data): first 9 auto transcripts live
+Pipeline proven end to end on lectures 1–12: 9 transcripts fetched (yt-dlp zipapp;
+brew was too slow through the sandbox proxy), 1 video genuinely has no captions (№9),
+2 transient DNS errors queued for retry. YouTube's Russian ASR now includes
+punctuation — better source quality than planned. Full-catalog fetch running in the
+background; transcripts land as `data/texts/transcript_<order>.json` + regenerated
+manifest. Verified in browser: №1 («Путь воина», 1995) renders 28 paragraphs under
+the draft banner.
