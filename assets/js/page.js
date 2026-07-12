@@ -37,6 +37,33 @@ function getLectureFromQuery() {
     return lectures.find(l => String(l.order) === String(id)) || null;
 }
 
+// Fill the prev/next navigation links (chronological, i.e. by order).
+// pageName is 'video' or 'lecture' so each page links to its own kind.
+function renderPrevNext(lecture, pageName) {
+    const nav = document.getElementById('lecture-nav');
+    if (!nav || typeof lectures === 'undefined') return;
+    const sorted = [...lectures].sort((a, b) => a.order - b.order);
+    const idx = sorted.findIndex(l => l.order === lecture.order);
+    const prev = idx > 0 ? sorted[idx - 1] : null;
+    const next = idx >= 0 && idx < sorted.length - 1 ? sorted[idx + 1] : null;
+
+    const prevEl = document.getElementById('nav-prev');
+    const nextEl = document.getElementById('nav-next');
+    if (prev) {
+        prevEl.href = `${pageName}.html?id=${prev.order}`;
+        prevEl.querySelector('.nav-title').textContent = prev.title;
+    } else {
+        prevEl.style.visibility = 'hidden';
+    }
+    if (next) {
+        nextEl.href = `${pageName}.html?id=${next.order}`;
+        nextEl.querySelector('.nav-title').textContent = next.title;
+    } else {
+        nextEl.style.visibility = 'hidden';
+    }
+    nav.style.display = 'flex';
+}
+
 function pageHasAnyText(order) {
     return (typeof lectureTextOrders !== 'undefined' && lectureTextOrders.includes(order)) ||
         (typeof lectureTranscriptOrders !== 'undefined' && lectureTranscriptOrders.includes(order));
@@ -130,6 +157,8 @@ function initVideoPage() {
         dl.href = lecture.audio_url;
         document.getElementById('audio-card').style.display = 'block';
     }
+
+    renderPrevNext(lecture, 'video');
 }
 
 // ---------- Lecture text page ----------
@@ -170,6 +199,8 @@ async function initLecturePage() {
     } else {
         banner.style.display = 'block';
     }
+
+    renderPrevNext(lecture, 'lecture');
 }
 
 // Text sources in priority order: curated JSON, auto transcript JSON,

@@ -165,3 +165,11 @@ Body and secondary text pass 4.5:1 everywhere (Paper 5.27+, Graphite 5.53+ — b
 design). Two accent failures fixed: Sage `#84A98C` → `#476c52` (2.42 → 5.55; also
 fixes white-on-accent buttons) and Paper `#8a6d3b` → `#7a5f33` (4.3 → 5.3).
 Same fix applied to web-dev-antigravity.
+
+### 2026-07-12 — Prev/next lecture navigation on subpages
+`assets/js/page.js`, `pages/{video,lecture}.html`, `assets/css/style.css`:
+- Chronological «← Предыдущая / Следующая →» cards (title shown, ellipsized) at the
+  bottom of video and text pages; each page kind links to its own kind. Sequential
+  listening is the natural consumption mode for a lecture series — previously the only
+  way to the next lecture was back through the catalog.
+- Hidden (visibility) at the ends of the range; announced via aria-label.

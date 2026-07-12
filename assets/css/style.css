@@ -1173,3 +1173,51 @@ body.page {
     color: var(--text-secondary);
     font-size: 0.9rem;
 }
+
+/* Prev/next lecture navigation on subpages */
+.lecture-nav {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 0.5rem;
+}
+
+.nav-link {
+    flex: 1;
+    max-width: 48%;
+    padding: 0.75rem 1rem;
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    text-decoration: none;
+    color: var(--text-secondary);
+}
+
+.nav-next {
+    text-align: right;
+}
+
+.nav-link:hover {
+    border-color: var(--accent-color);
+    color: var(--text-primary);
+}
+
+.nav-link:focus-visible {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 2px;
+}
+
+.nav-dir {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--accent-color);
+    margin-bottom: 0.25rem;
+}
+
+.nav-title {
+    display: block;
+    font-size: 0.9rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
