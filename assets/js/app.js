@@ -129,9 +129,13 @@ function renderTableView(items) {
                 <p class="lecture-desc-hover">${lecture.description}</p>
             </div>
             <div class="lecture-actions">
-                <a href="${lecture.download_url}" target="_blank">
+                <a href="pages/video.html?id=${lecture.order}">
                     <i class="fas fa-play"></i> Смотреть
                 </a>
+                ${hasLectureText(lecture.order) ? `
+                <a href="pages/lecture.html?id=${lecture.order}">
+                    <i class="fas fa-book-open"></i> Читать
+                </a>` : ''}
             </div>
         </div>
     `}).join('');
@@ -147,9 +151,13 @@ function renderGridView(items) {
                 <h4 class="lecture-title">${lecture.title}</h4>
                 <p class="lecture-desc">${lecture.description}</p>
                 <div class="lecture-actions">
-                    <a href="${lecture.download_url}" target="_blank" class="btn-download">
+                    <a href="pages/video.html?id=${lecture.order}" class="btn-download">
                         Смотреть
                     </a>
+                    ${hasLectureText(lecture.order) ? `
+                    <a href="pages/lecture.html?id=${lecture.order}" class="btn-download">
+                        Читать
+                    </a>` : ''}
                 </div>
             </div>
         </div>
@@ -411,6 +419,11 @@ function updateViewClasses() {
             btn.classList.remove('active');
         }
     });
+}
+
+// Helper: does a full lecture text exist for this order? (index in texts-index.js)
+function hasLectureText(order) {
+    return typeof lectureTextOrders !== 'undefined' && lectureTextOrders.includes(order);
 }
 
 // Helper: Russian pluralization for "запись" (1 запись, 2 записи, 5 записей)

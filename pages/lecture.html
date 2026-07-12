@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Сергей Бугаев - Библиотека лекций - текст лекции">
+    <title>Текст лекции — Сергей Бугаев</title>
+    <link rel="icon" href="../images/cropped-logo-yantra_160x160.jpg" type="image/jpg">
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+
+<body class="page" data-page="lecture">
+    <header class="app-header page-header">
+        <a href="../index.html" class="logo">
+            <img src="../images/cropped-logo-yantra_160x160.jpg" alt="Логотип">
+            <h1>Сергей Бугаев<br>Библиотека лекций</h1>
+        </a>
+    </header>
+
+    <main class="page-main">
+        <a href="../index.html" class="back-button">← Вернуться к каталогу</a>
+
+        <div id="loading" class="page-status">Загрузка…</div>
+        <div id="page-error" class="page-status" style="display: none;"></div>
+
+        <div id="lecture-container" style="display: none;">
+            <div class="page-card">
+                <h1 id="lecture-title" class="page-title"></h1>
+                <div id="lecture-meta" class="page-meta"></div>
+                <div class="page-actions">
+                    <a id="lecture-watch-link" href="#" class="btn-action">▶ Смотреть видео</a>
+                </div>
+            </div>
+
+            <div id="text-unavailable" class="page-card text-unavailable" style="display: none;">
+                <h3>📝 Полный текст этой лекции пока недоступен</h3>
+                <p>Тексты добавляются постепенно. Пока можно посмотреть видеозапись.</p>
+            </div>
+
+            <div id="lecture-text-card" class="page-card" style="display: none;">
+                <h3 class="page-subtitle">Полный текст</h3>
+                <div id="lecture-text" class="page-text lecture-full-text"></div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="page-footer">
+        <p>&copy; 2025 Личная библиотека лекций. Все права защищены.</p>
+    </footer>
+
+    <script src="../assets/js/data.js" defer></script>
+    <script src="../assets/js/texts-index.js" defer></script>
+    <script src="../assets/js/page.js" defer></script>
+</body>
+
+</html>

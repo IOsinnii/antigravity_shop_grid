@@ -826,3 +826,179 @@ body {
         gap: 1rem;
     }
 }
+/* ============================================================
+   Merged from library_shop_grid: subpages & catalog actions
+   ============================================================ */
+
+/* --- Sidebar page links --- */
+.sidebar-links {
+    margin-top: 1.5rem;
+}
+
+.sidebar-links h3 {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+    letter-spacing: 1px;
+}
+
+.sidebar-links a {
+    display: block;
+    padding: 0.5rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    border-radius: 4px;
+}
+
+.sidebar-links a:hover {
+    background-color: var(--hover-color);
+    color: var(--text-primary);
+}
+
+.sidebar-links a:focus-visible {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 2px;
+}
+
+/* --- Catalog action buttons (video + text per lecture) --- */
+.view-table .lecture-actions {
+    flex: 0 0 130px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    text-align: center;
+}
+
+.view-table .lecture-actions a {
+    display: block;
+}
+
+.view-grid .lecture-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.view-grid .lecture-actions .btn-download {
+    flex: 1;
+}
+
+/* --- Subpage layout (body.page lifts the app-shell viewport lock) --- */
+body.page {
+    height: auto;
+    min-height: 100vh;
+}
+
+.page-header {
+    min-height: 120px;
+}
+
+.page-header .logo {
+    text-decoration: none;
+}
+
+.page-main {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+    flex: 1;
+}
+
+.back-button {
+    display: inline-block;
+    margin-bottom: 1.5rem;
+    color: var(--accent-color);
+    text-decoration: none;
+}
+
+.back-button:hover {
+    text-decoration: underline;
+}
+
+.page-status {
+    text-align: center;
+    color: var(--text-secondary);
+    padding: 3rem 1rem;
+}
+
+.page-card {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.page-title {
+    font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+    margin-bottom: 0.75rem;
+    color: var(--text-primary);
+}
+
+.page-subtitle {
+    font-size: 1rem;
+    color: var(--accent-color);
+    margin: 1.25rem 0 0.5rem;
+}
+
+.page-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+}
+
+.page-text p {
+    margin-bottom: 1em;
+    line-height: 1.7;
+}
+
+.video-embed {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border: 0;
+    border-radius: 4px;
+    background-color: #000;
+    display: block;
+}
+
+.page-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 1rem;
+}
+
+.btn-action {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background-color: var(--accent-color);
+    color: var(--bg-primary);
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+.btn-action:hover {
+    opacity: 0.85;
+}
+
+.btn-action.btn-secondary {
+    background-color: var(--bg-tertiary);
+    color: var(--text-primary);
+}
+
+.text-unavailable {
+    border-left: 3px solid var(--accent-color);
+}
+
+.page-footer {
+    text-align: center;
+    padding: 1.5rem;
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    border-top: 1px solid var(--border-color);
+}
