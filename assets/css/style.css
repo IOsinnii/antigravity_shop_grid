@@ -1,0 +1,828 @@
+/* Base Variables (Default: Yantra) */
+:root {
+    --bg-primary: #ffffff;
+    --bg-secondary: #f4f7fa;
+    --bg-tertiary: #e6ecf2;
+    --text-primary: #003366;
+    --text-secondary: #546e7a;
+    --accent-color: #0056b3;
+    --border-color: #dbe4ed;
+    --hover-color: #e6ecf2;
+
+    /* Default Font */
+    --font-family: 'Arial', sans-serif;
+}
+
+/* Font Classes */
+body.font-arial {
+    --font-family: 'Arial', sans-serif;
+}
+
+body.font-verdana {
+    --font-family: 'Verdana', sans-serif;
+}
+
+
+
+/* Theme: Yantra (Light Blue) - Default */
+body.theme-yantra {
+    /* Inherits base values from :root, kept for explicit class logic */
+}
+
+/* Theme: Forest (Green Dark) */
+body.theme-forest {
+    --bg-primary: #1A1C19;
+    --bg-secondary: #2C332B;
+    --bg-tertiary: #3E463D;
+    --text-primary: #E1E3DF;
+    --text-secondary: #8F9E91;
+    --accent-color: #81C784;
+    --border-color: #3E463D;
+    --hover-color: #3E463D;
+}
+
+/* Theme: Soft Sage (Light) */
+body.theme-sage {
+    --bg-primary: #F4F7F6;
+    --bg-secondary: #FFFFFF;
+    --bg-tertiary: #E8ECEB;
+    --text-primary: #2F3E46;
+    --text-secondary: #52796F;
+    --accent-color: #84A98C;
+    --border-color: #CAD2C5;
+    --hover-color: #E0E7E4;
+}
+
+/* Theme: Obsidian */
+body.theme-obsidian {
+    --bg-primary: #121212;
+    --bg-secondary: #1e1e1e;
+    --bg-tertiary: #2c2c2c;
+    --text-primary: #e0e0e0;
+    --text-secondary: #a0a0a0;
+    --accent-color: #bb86fc;
+    --border-color: #333;
+    --hover-color: #2a2a2a;
+
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* Smooth theme toggle — only on surfaces that actually change with the theme */
+body,
+.sidebar,
+.content-area,
+.lecture-item,
+.search-box input,
+.category-item,
+.view-btn,
+.sort-btn,
+.tag,
+.app-footer,
+.sidebar-toggle {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        transition: none !important;
+        animation: none !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+body {
+    font-family: var(--font-family);
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: 1.6;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header */
+.app-header {
+    background-image: url('../../images/header_banner.jpg');
+    background-size: cover;
+    background-position: center top;
+    /* Focus on top part usually safer for banners */
+    padding: 1rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border-color);
+    flex-shrink: 0;
+    min-height: 180px;
+    /* Space for the banner to be visible */
+    position: relative;
+    box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.3);
+    /* Overlay for readability */
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+    /* Ensure text is above overlay */
+}
+
+.logo img {
+    height: 80px;
+    /* Scaled up from 40px */
+    width: auto;
+    margin-right: 20px;
+    border-radius: 50%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.logo h1 {
+    font-size: clamp(1.3rem, 3.5vw, 2.2rem);
+    /* Fluid: shrinks gracefully on narrow screens */
+    font-weight: 700;
+    color: #fff;
+    /* Always white on banner */
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+    line-height: 1.2;
+}
+
+.header-controls {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-end;
+}
+
+.control-group {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.control-label {
+    color: #fff;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 500;
+}
+
+/* Theme Selector in header */
+.theme-selector {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.theme-btn {
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+    transition: transform 0.2s, border-color 0.2s;
+}
+
+.theme-btn:hover {
+    transform: scale(1.1);
+    border-color: #fff;
+}
+
+.theme-btn.active {
+    border-color: #fff;
+    transform: scale(1.2);
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
+}
+
+/* Font Selector in header */
+.font-selector {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.font-btn {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: #aaa;
+    padding: 0.2rem 0.6rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.font-btn:hover {
+    color: #fff;
+    border-color: #fff;
+}
+
+.font-btn.active {
+    background-color: #fff;
+    color: #000;
+    border-color: #fff;
+    font-weight: bold;
+}
+
+.font-btn[data-font="font-arial"] {
+    font-family: Arial, sans-serif;
+}
+
+.font-btn[data-font="font-verdana"] {
+    font-family: Verdana, sans-serif;
+}
+
+.header-controls button {
+    background: rgba(0, 0, 0, 0.5);
+    /* Semi-transparent bg for button if present */
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+/* Main Container */
+.app-container {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+    /* Prevent body scroll, handle internally */
+}
+
+/* Sidebar (Navigation) */
+.sidebar {
+    width: 250px;
+    background-color: var(--bg-secondary);
+    border-right: 1px solid var(--border-color);
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    width: 20%;
+    min-width: 220px;
+    transition: width 0.3s ease, min-width 0.3s ease, padding 0.3s ease, opacity 0.3s ease;
+}
+
+.sidebar.collapsed {
+    width: 0 !important;
+    min-width: 0 !important;
+    padding-left: 0;
+    padding-right: 0;
+    border-right: none;
+    overflow: hidden;
+    opacity: 0;
+}
+
+/* Sidebar Toggle Button */
+.sidebar-resizer {
+    width: 0;
+    position: relative;
+    z-index: 100;
+    display: flex;
+    align-items: flex-start;
+}
+
+.sidebar-toggle {
+    position: absolute;
+    top: 120px;
+    /* Aligned with top of categories roughly */
+    left: 0;
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-left: none;
+    border-radius: 0 6px 6px 0;
+    padding: 12px 2px;
+    cursor: pointer;
+    color: var(--text-secondary);
+    font-size: 0.7rem;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    transform: rotate(180deg);
+    /* Text reading direction fix if needed, or just normal */
+    box-shadow: 2px 0 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.2s, color 0.2s;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+}
+
+.sidebar-toggle:hover {
+    background-color: var(--bg-tertiary);
+    color: var(--text-primary);
+}
+
+.sidebar-toggle span {
+    display: block;
+    /* ensure vertical */
+}
+
+.search-box {
+    position: relative;
+    margin-bottom: 1.5rem;
+}
+
+.search-box input {
+    width: 100%;
+    padding: 0.75rem;
+    padding-right: 2.25rem;
+    background-color: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    border-radius: 4px;
+}
+
+.search-clear {
+    position: absolute;
+    top: 50%;
+    right: 0.5rem;
+    transform: translateY(-50%);
+    display: none;
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 1.2rem;
+    line-height: 1;
+    padding: 0.25rem;
+    cursor: pointer;
+}
+
+.search-clear:hover {
+    color: var(--text-primary);
+}
+
+.search-box.has-query .search-clear {
+    display: block;
+}
+
+.app-footer {
+    margin-top: auto;
+    text-align: center;
+    padding: 1.5rem 0.5rem;
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    border-top: 1px solid var(--border-color);
+}
+
+.theme-section {
+    margin-bottom: 2rem;
+}
+
+.theme-section h3 {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    margin-bottom: 0.75rem;
+    letter-spacing: 1px;
+}
+
+.theme-selector {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.theme-btn {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    border: 2px solid var(--border-color);
+    cursor: pointer;
+    transition: transform 0.2s, border-color 0.2s;
+    position: relative;
+}
+
+.theme-btn:hover {
+    transform: scale(1.1);
+}
+
+.theme-btn.active {
+    border-color: var(--text-primary);
+    transform: scale(1.15);
+}
+
+/* Swatch Colors */
+.theme-btn.theme-obsidian {
+    background: #121212;
+}
+
+.theme-btn.theme-yantra {
+    background: #003366;
+    /* Navy Blue representative */
+    border-color: #003366;
+}
+
+.theme-btn.theme-forest {
+    background: #1A1C19;
+}
+
+.theme-btn.theme-sage {
+    background: #F4F7F6;
+}
+
+.view-toggles {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+}
+
+.view-btn {
+    flex: 1;
+    padding: 0.5rem;
+    background-color: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.2s;
+}
+
+.view-btn.active {
+    background-color: var(--accent-color);
+    color: #000;
+    border-color: var(--accent-color);
+    font-weight: 500;
+}
+
+.filters-section h3 {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+    letter-spacing: 1px;
+}
+
+#category-list {
+    list-style: none;
+}
+
+.category-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 0.5rem;
+    padding: 0.75rem 0.5rem;
+    cursor: pointer;
+    border-radius: 4px;
+    color: var(--text-secondary);
+    transition: background-color 0.2s;
+    font-size: 0.95rem;
+}
+
+.category-item:focus-visible {
+    outline: 2px solid var(--accent-color);
+    outline-offset: -2px;
+}
+
+.category-count {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    background-color: var(--bg-tertiary);
+    border-radius: 10px;
+    padding: 0 8px;
+    flex-shrink: 0;
+}
+
+.category-item.active .category-count {
+    color: var(--accent-color);
+}
+
+.category-item:hover {
+    background-color: var(--hover-color);
+    color: var(--text-primary);
+}
+
+.category-item.active {
+    background-color: var(--bg-tertiary);
+    color: var(--accent-color);
+    border-left: 3px solid var(--accent-color);
+    padding-left: calc(0.5rem - 3px);
+}
+
+/* Content Area */
+.content-area {
+    flex: 1;
+    padding: 2rem;
+    overflow-y: auto;
+    background-color: var(--bg-primary);
+}
+
+/* Catalog Header */
+#catalog-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.header-left {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+}
+
+#catalog-header h2 {
+    font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+    color: var(--text-primary);
+    margin: 0;
+}
+
+#lecture-count {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+/* Sort Controls */
+.sort-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.sort-label {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-right: 0.5rem;
+}
+
+.sort-btn {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    padding: 0.4rem 0.8rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.2s;
+}
+
+.sort-btn:hover {
+    border-color: var(--text-primary);
+    color: var(--text-primary);
+}
+
+.sort-btn.active {
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+    color: #fff;
+    /* Ensure text is readable on accent */
+}
+
+/* Table Layout (List) */
+.view-table .lecture-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.75rem 1rem;
+    /* Slightly more compact than default */
+    background-color: var(--bg-secondary);
+    border-radius: 8px;
+    margin-bottom: 0.5rem;
+    border: 1px solid var(--border-color);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.view-table .lecture-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.view-table .lecture-meta {
+    flex: 0 0 180px;
+    display: flex;
+    gap: 1rem;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.view-table .lecture-title {
+    flex: 1;
+}
+
+.view-table .lecture-title h4 {
+    margin: 0;
+    color: var(--text-primary);
+    font-size: 1rem;
+}
+
+/* Tags in Table View */
+.lecture-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.25rem;
+}
+
+.tag {
+    font-size: 0.75rem;
+    background-color: var(--bg-tertiary);
+    color: var(--text-secondary);
+    padding: 2px 8px;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    white-space: nowrap;
+}
+
+/* Hover Description in Table View */
+.lecture-desc-hover {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out, opacity 0.3s ease-out, margin 0.3s ease;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-top: 0;
+
+    /* Line clamp settings */
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+}
+
+.view-table .lecture-item:hover .lecture-desc-hover {
+    max-height: 120px;
+    /* Approx 5 lines */
+    opacity: 1;
+    margin-top: 0.5rem;
+}
+
+.view-table .lecture-actions {
+    flex: 0 0 100px;
+    text-align: right;
+}
+
+.view-table .lecture-actions a {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background-color: var(--bg-tertiary);
+    color: var(--text-primary);
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    transition: background 0.2s;
+}
+
+.view-table .lecture-actions a:hover {
+    background-color: var(--accent-color);
+    color: #000;
+}
+
+/* Grid Layout (Card) */
+.view-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+}
+
+.view-grid .lecture-item {
+    background-color: var(--bg-secondary);
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s;
+}
+
+.view-grid .lecture-item:hover {
+    transform: translateY(-4px);
+}
+
+.view-grid .lecture-thumbnail {
+    width: 100%;
+    aspect-ratio: 16/9;
+    background-color: #000;
+    object-fit: cover;
+}
+
+.view-grid .lecture-content {
+    padding: 1.5rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.view-grid .lecture-date {
+    font-size: 0.8rem;
+    color: var(--accent-color);
+    margin-bottom: 0.5rem;
+}
+
+.view-grid .lecture-title {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    line-height: 1.4;
+}
+
+.view-grid .lecture-desc {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+    flex: 1;
+    display: -webkit-box;
+    line-clamp: 3;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.view-grid .lecture-actions {
+    margin-top: auto;
+}
+
+.view-grid .btn-download {
+    display: block;
+    width: 100%;
+    padding: 0.75rem;
+    background-color: var(--bg-tertiary);
+    color: var(--text-primary);
+    text-align: center;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: 500;
+}
+
+.view-grid .btn-download:hover {
+    background-color: var(--accent-color);
+    color: #000;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--bg-tertiary);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #444;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .app-container {
+        flex-direction: column;
+        overflow: auto;
+        /* Allow full page scroll */
+    }
+
+    .sidebar {
+        width: 100%;
+        min-width: 100%;
+        border-right: none;
+        border-bottom: 1px solid var(--border-color);
+        max-height: 50vh;
+        /* Limit height if users want to scroll it, but request says "scroll away" */
+        overflow-y: visible;
+        /* Let it be part of the flow */
+    }
+
+    .content-area {
+        overflow-y: visible;
+        padding: 1rem;
+    }
+
+    /* Adjust Table View for Mobile */
+    .view-table .lecture-item {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        padding: 1rem 0;
+    }
+
+    .view-table .lecture-meta {
+        flex-direction: row;
+        gap: 1rem;
+    }
+}
