@@ -199,3 +199,14 @@ Same fix applied to web-dev-antigravity.
 - Eleventy pages rebuilt: static lecture pages now link «Читать расшифровку
   (черновик)» wherever a transcript exists.
 Verified: №150 (2020) and №1 (1995) render transcripts under the banner; console clean.
+
+### 2026-07-12 — Static lecture pages now carry the full text; 219 duplicate removed
+`_data/lectures.js`, `_templates/lecture-pages.njk`, `data/texts/`:
+- `lecture_219.md` was a mislabeled duplicate of lecture 192 (frontmatter said
+  `id: "192"`, same video id, body byte-identical to `lecture_192.json` bar one
+  trailing space) — deleted; the long-standing "orphan 219" tradeoff note is void.
+- The build now bakes each lecture's full text (curated or transcript, with the
+  draft banner) into `/lectures/<order>/` — every page is a complete crawlable
+  document: player + metadata + description + text (~40KB avg, 7.7MB total).
+  The «Читать» action became an in-page anchor. PT Serif loads only on pages
+  that have a text.

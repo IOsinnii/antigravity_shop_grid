@@ -15,6 +15,12 @@ permalink: "lectures/{{ lec.order }}/index.html"
     <title>{{ lec.title }} — Сергей Бугаев, Библиотека лекций</title>
     <link rel="icon" href="../../images/cropped-logo-yantra_160x160.jpg" type="image/jpg">
     <link rel="stylesheet" href="../../assets/css/style.css">
+    {% if lec.textParagraphs %}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@0,400;0,700;1,400&display=swap"
+        rel="stylesheet">
+    {% endif %}
     <meta property="og:type" content="video.other">
     <meta property="og:title" content="{{ lec.title }}">
     <meta property="og:description" content="{{ lec.descriptionShort }}">
@@ -66,8 +72,8 @@ permalink: "lectures/{{ lec.order }}/index.html"
                 {% for p in lec.paragraphs %}<p>{{ p }}</p>{% endfor %}
             </div>
             <div class="page-actions">
-                {% if lec.textKind %}
-                <a href="../../pages/lecture.html?id={{ lec.order }}" class="btn-action">📖
+                {% if lec.textParagraphs %}
+                <a href="#full-text" class="btn-action">📖
                     {% if lec.textKind == 'curated' %}Читать текст лекции{% else %}Читать расшифровку (черновик){% endif %}</a>
                 {% endif %}
                 {% if lec.audio_url %}
@@ -77,6 +83,21 @@ permalink: "lectures/{{ lec.order }}/index.html"
                     Открыть на YouTube ↗</a>
             </div>
         </div>
+
+        {% if lec.textParagraphs %}
+        <div class="page-card" id="full-text">
+            {% if lec.textKind == 'auto' %}
+            <div class="transcript-note">
+                Автоматическая расшифровка видео — возможны ошибки распознавания и
+                отсутствие знаков препинания. Отредактированный текст готовится.
+            </div>
+            {% endif %}
+            <h2 class="page-subtitle">Полный текст</h2>
+            <div class="page-text lecture-full-text">
+                {% for p in lec.textParagraphs %}<p>{{ p }}</p>{% endfor %}
+            </div>
+        </div>
+        {% endif %}
 
         <nav class="lecture-nav" aria-label="Соседние лекции">
             {% if lec.prev %}
