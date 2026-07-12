@@ -2,9 +2,29 @@
 
 Audience: an implementing LLM agent (or a developer) continuing this project.
 Written to be executable without access to the conversation that produced it.
-Phase 0 (themes, font-size control, reading typography, print styles) is DONE —
-see `PLAN.md` change log. Work through phases in order; each phase is shippable
-on its own.
+Work through phases in order; each phase is shippable on its own.
+
+## Progress (updated 2026-07-12, end of session)
+
+- **Phase 0 — DONE**: themes (Графит/Бумага), font-size control, PT Serif reading
+  typography, print styles. Backported to web-dev-antigravity.
+- **Leftover quick wins — DONE**: mobile header controls, error message split,
+  theme backport.
+- **Phase 1 — MOSTLY DONE**: pipeline scripts 5–7 written and proven; site shows
+  two-tier texts (curated / auto with draft banner). Auto transcripts fetched for
+  part of the catalog; a full-catalog fetch may still be running or partial —
+  check `../python-json-transformation/output/transcripts_report.json`, rerun
+  script 5 until the report has no `error` statuses (it retries those), then
+  scripts 6 + 7, verify one page, commit `data/texts/` + `texts-index.js`.
+  Fetching needs yt-dlp compatible with the machine's Python (see script 5 note).
+- **Phase 2 — SITE SIDE DONE, DATA BLOCKED**: audio card renders when `audio_url`
+  exists; scripts 8 (extract+loudnorm) and 9 (podcast RSS) written, py_compile
+  checked. Blocked on human: original videos + R2 bucket (decision points below).
+- **Phase 3 — NOT STARTED** (no Node.js on the machine during this session).
+- **Phase 4 — PARTIAL**: WCAG contrast audit done, two accent colors fixed
+  (see PLAN.md). Site-level OpenGraph tags added to index.html. Script 10
+  (sitemap+robots) written, blocked on the public SITE_URL. Pagefind still todo
+  (needs Phase 3 first to have crawlable per-lecture HTML).
 
 ## Context you must load first
 
