@@ -27,8 +27,13 @@ function applyStoredAppearance() {
 }
 
 function getLectureFromQuery() {
+    if (typeof lectures === 'undefined') {
+        // data.js failed to load — a different failure than a wrong id
+        pageShowError('Не удалось загрузить базу лекций. Обновите страницу.');
+        return null;
+    }
     const id = new URLSearchParams(window.location.search).get('id');
-    if (!id || typeof lectures === 'undefined') return null;
+    if (!id) return null;
     return lectures.find(l => String(l.order) === String(id)) || null;
 }
 
@@ -73,7 +78,9 @@ function pageShowError(message) {
 function initVideoPage() {
     const lecture = getLectureFromQuery();
     if (!lecture) {
-        pageShowError('Лекция не найдена. Вернитесь в каталог и выберите запись.');
+        if (typeof lectures !== 'undefined') {
+            pageShowError('Лекция не найдена. Вернитесь в каталог и выберите запись.');
+        }
         return;
     }
 
@@ -116,7 +123,9 @@ function initVideoPage() {
 async function initLecturePage() {
     const lecture = getLectureFromQuery();
     if (!lecture) {
-        pageShowError('Лекция не найдена. Вернитесь в каталог и выберите запись.');
+        if (typeof lectures !== 'undefined') {
+            pageShowError('Лекция не найдена. Вернитесь в каталог и выберите запись.');
+        }
         return;
     }
 

@@ -104,3 +104,11 @@ pages onto it is strictly less work than untangling shop_grid's dual render path
 Verified over HTTP: catalog renders 194 records with correct dual actions; video page
 embeds and falls back; text page renders №192/220/221 and shows the banner for others;
 zero console errors.
+
+### 2026-07-12 — Leftover quick wins from PLAN_NEXT_PHASES.md
+- Mobile: header controls join the flow under the logo at ≤768px (they floated over
+  the banner title and catalog content on narrow screens).
+- `page.js` distinguishes "database failed to load" from "record not found" so the
+  error message is actionable.
+- Графит/Бумага themes + graphite-as-dark-default backported to web-dev-antigravity
+  (committed there separately).
