@@ -158,3 +158,10 @@ punctuation — better source quality than planned. Full-catalog fetch running i
 background; transcripts land as `data/texts/transcript_<order>.json` + regenerated
 manifest. Verified in browser: №1 («Путь воина», 1995) renders 28 paragraphs under
 the draft banner.
+
+### 2026-07-12 — Phase 4 (partial): WCAG contrast audit of all six themes
+Computed AA ratios for text/secondary/accent against both backgrounds in every theme.
+Body and secondary text pass 4.5:1 everywhere (Paper 5.27+, Graphite 5.53+ — by
+design). Two accent failures fixed: Sage `#84A98C` → `#476c52` (2.42 → 5.55; also
+fixes white-on-accent buttons) and Paper `#8a6d3b` → `#7a5f33` (4.3 → 5.3).
+Same fix applied to web-dev-antigravity.
