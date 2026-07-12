@@ -1,0 +1,104 @@
+---
+pagination:
+  data: lectures
+  size: 1
+  alias: lec
+permalink: "lectures/{{ lec.order }}/index.html"
+---
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="{{ lec.descriptionShort }}">
+    <title>{{ lec.title }} — Сергей Бугаев, Библиотека лекций</title>
+    <link rel="icon" href="../../images/cropped-logo-yantra_160x160.jpg" type="image/jpg">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <meta property="og:type" content="video.other">
+    <meta property="og:title" content="{{ lec.title }}">
+    <meta property="og:description" content="{{ lec.descriptionShort }}">
+    <meta property="og:image" content="{{ lec.thumbnail_url }}">
+    <meta property="og:locale" content="ru_RU">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "VideoObject",
+        "name": {{ lec.title | dump | safe }},
+        "description": {{ lec.descriptionShort | dump | safe }},
+        "thumbnailUrl": {{ lec.thumbnail_url | dump | safe }},
+        {% if lec.isoDate %}"uploadDate": "{{ lec.isoDate }}",{% endif %}
+        {% if lec.isoDuration %}"duration": "{{ lec.isoDuration }}",{% endif %}
+        "embedUrl": "https://www.youtube.com/embed/{{ lec.youtubeId }}",
+        "inLanguage": "ru"
+    }
+    </script>
+</head>
+
+<body class="page" data-page="static-lecture">
+    <header class="app-header page-header">
+        <a href="../../index.html" class="logo">
+            <img src="../../images/cropped-logo-yantra_160x160.jpg" alt="Логотип">
+            <h1>Сергей Бугаев<br>Библиотека лекций</h1>
+        </a>
+    </header>
+
+    <main class="page-main">
+        <a href="../../index.html" class="back-button">← Вернуться к каталогу</a>
+
+        {% if lec.youtubeId %}
+        <div class="page-card">
+            <iframe class="video-embed" src="https://www.youtube.com/embed/{{ lec.youtubeId }}?rel=0"
+                title="{{ lec.title }}" allowfullscreen
+                allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                loading="lazy"></iframe>
+        </div>
+        {% endif %}
+
+        <div class="page-card">
+            <h1 class="page-title">{{ lec.title }}</h1>
+            <div class="page-meta">
+                <span>№{{ lec.order }}</span>
+                <span>{{ lec.date_standard or lec.date }}</span>
+                <span>{{ lec.duration }}</span>
+            </div>
+            <div class="page-text">
+                {% for p in lec.paragraphs %}<p>{{ p }}</p>{% endfor %}
+            </div>
+            <div class="page-actions">
+                {% if lec.textKind %}
+                <a href="../../pages/lecture.html?id={{ lec.order }}" class="btn-action">📖
+                    {% if lec.textKind == 'curated' %}Читать текст лекции{% else %}Читать расшифровку (черновик){% endif %}</a>
+                {% endif %}
+                {% if lec.audio_url %}
+                <a href="{{ lec.audio_url }}" class="btn-action">🎧 Аудио (MP3)</a>
+                {% endif %}
+                <a href="{{ lec.download_url }}" target="_blank" rel="noopener" class="btn-action btn-secondary">
+                    Открыть на YouTube ↗</a>
+            </div>
+        </div>
+
+        <nav class="lecture-nav" aria-label="Соседние лекции">
+            {% if lec.prev %}
+            <a href="../{{ lec.prev.order }}/" class="nav-link nav-prev">
+                <span class="nav-dir">← Предыдущая</span>
+                <span class="nav-title">{{ lec.prev.title }}</span>
+            </a>
+            {% endif %}
+            {% if lec.next %}
+            <a href="../{{ lec.next.order }}/" class="nav-link nav-next">
+                <span class="nav-dir">Следующая →</span>
+                <span class="nav-title">{{ lec.next.title }}</span>
+            </a>
+            {% endif %}
+        </nav>
+    </main>
+
+    <footer class="page-footer">
+        <p>&copy; 2025 Личная библиотека лекций. Все права защищены.</p>
+    </footer>
+
+    <script src="../../assets/js/page.js" defer></script>
+</body>
+
+</html>

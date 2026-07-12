@@ -173,3 +173,16 @@ Same fix applied to web-dev-antigravity.
   listening is the natural consumption mode for a lecture series — previously the only
   way to the next lecture was back through the catalog.
 - Hidden (visibility) at the ends of the range; announced via aria-label.
+
+### 2026-07-12 — Phase 3 (skeleton): Eleventy pre-renders one page per lecture
+`package.json`, `eleventy.config.js`, `_data/lectures.js`, `_templates/lecture-pages.njk`:
+- `npx @11ty/eleventy` builds 194 static pages at `_site/lectures/<order>/` in 0.2s:
+  server-rendered title/description/player, per-lecture OpenGraph tags and
+  schema.org VideoObject JSON-LD (ISO 8601 duration/date derived in the data
+  adapter), static prev/next links, links into the interactive text page.
+- Strictly additive: the catalog SPA and client-rendered subpages are untouched;
+  `_data/lectures.js` reads the canonical JSON (single source of truth preserved).
+- `_site/` is gitignored. Where the output ships (docs/, gh-pages, or committed
+  lectures/) remains the deployment decision — verification used symlinked assets.
+- Verified in browser: /lectures/100/ renders with theme, player, meta; view-source
+  shows baked OG/JSON-LD; zero console errors.
