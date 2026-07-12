@@ -20,11 +20,18 @@ Work through phases in order; each phase is shippable on its own.
 - **Phase 2 — SITE SIDE DONE, DATA BLOCKED**: audio card renders when `audio_url`
   exists; scripts 8 (extract+loudnorm) and 9 (podcast RSS) written, py_compile
   checked. Blocked on human: original videos + R2 bucket (decision points below).
-- **Phase 3 — NOT STARTED** (no Node.js on the machine during this session).
+- **Phase 3 — SKELETON DONE**: Eleventy installed (`npm install`), 194 crawlable
+  pages build to `_site/lectures/<order>/` with OG + JSON-LD (`npx @11ty/eleventy`).
+  Remaining: pick the deployment target for `_site` output (decision point 4),
+  point catalog action links at `/lectures/<order>/`, add `?id=` redirect shims,
+  then rerun script 10 with `PRETTY_URLS = True`. Node was installed as a
+  standalone tarball in the session scratchpad — a permanent machine needs
+  `brew install node` (or nvm) first.
 - **Phase 4 — PARTIAL**: WCAG contrast audit done, two accent colors fixed
-  (see PLAN.md). Site-level OpenGraph tags added to index.html. Script 10
-  (sitemap+robots) written, blocked on the public SITE_URL. Pagefind still todo
-  (needs Phase 3 first to have crawlable per-lecture HTML).
+  (see PLAN.md). Site-level OpenGraph tags added to index.html; per-lecture OG +
+  JSON-LD ship with the Phase 3 pages. Script 10 (sitemap+robots) written, blocked
+  on the public SITE_URL. Pagefind now unblocked: run it over `_site` after the
+  Eleventy build.
 
 ## Context you must load first
 
