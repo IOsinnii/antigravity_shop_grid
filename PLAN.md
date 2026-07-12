@@ -112,3 +112,17 @@ zero console errors.
   error message is actionable.
 - Графит/Бумага themes + graphite-as-dark-default backported to web-dev-antigravity
   (committed there separately).
+
+### 2026-07-12 — Phase 1 (site side): two-tier texts — curated + auto transcripts
+`assets/js/{page.js,app.js,texts-index.js}`, `pages/lecture.html`, `assets/css/style.css`:
+- `texts-index.js` is now GENERATED (pipeline script 7) and carries two lists:
+  curated `lectureTextOrders` and `lectureTranscriptOrders` (auto placeholders).
+- Text loading priority: `lecture_<order>.json` (curated) → `transcript_<order>.json`
+  (auto) → `lecture_<order>.md` (curated md). Auto texts render under a visible note:
+  «Автоматическая расшифровка… отредактированный текст готовится».
+- Catalog and video page show «Читать» for either tier; transcript-only links carry a
+  "Черновик: автоматическая расшифровка" tooltip.
+- Pipeline scripts live in ../python-json-transformation/python-scripts/:
+  `5_fetch_transcripts.py` (yt-dlp; plain HTTP is blocked by YouTube's proof-of-origin
+  token — verified empirically: timedtext returns empty 200), `6_subs_to_text.py`
+  (json3/VTT → pause-based paragraphs, no invented punctuation), `7_generate_texts_index.py`.

@@ -133,7 +133,7 @@ function renderTableView(items) {
                     <i class="fas fa-play"></i> Смотреть
                 </a>
                 ${hasLectureText(lecture.order) ? `
-                <a href="pages/lecture.html?id=${lecture.order}">
+                <a href="pages/lecture.html?id=${lecture.order}" title="${lectureTextTitle(lecture.order)}">
                     <i class="fas fa-book-open"></i> Читать
                 </a>` : ''}
             </div>
@@ -155,7 +155,7 @@ function renderGridView(items) {
                         Смотреть
                     </a>
                     ${hasLectureText(lecture.order) ? `
-                    <a href="pages/lecture.html?id=${lecture.order}" class="btn-download">
+                    <a href="pages/lecture.html?id=${lecture.order}" class="btn-download" title="${lectureTextTitle(lecture.order)}">
                         Читать
                     </a>` : ''}
                 </div>
@@ -456,9 +456,17 @@ function updateViewClasses() {
     });
 }
 
-// Helper: does a full lecture text exist for this order? (index in texts-index.js)
+// Helpers: text availability per order (manifest in texts-index.js).
+// Curated texts and auto transcripts both get a "Читать" link; the transcript
+// variant is marked as a draft in the tooltip and on the page itself.
 function hasLectureText(order) {
-    return typeof lectureTextOrders !== 'undefined' && lectureTextOrders.includes(order);
+    return (typeof lectureTextOrders !== 'undefined' && lectureTextOrders.includes(order)) ||
+        (typeof lectureTranscriptOrders !== 'undefined' && lectureTranscriptOrders.includes(order));
+}
+
+function lectureTextTitle(order) {
+    const isCurated = typeof lectureTextOrders !== 'undefined' && lectureTextOrders.includes(order);
+    return isCurated ? 'Текст лекции' : 'Черновик: автоматическая расшифровка';
 }
 
 // Helper: Russian pluralization for "запись" (1 запись, 2 записи, 5 записей)

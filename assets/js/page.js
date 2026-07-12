@@ -37,6 +37,11 @@ function getLectureFromQuery() {
     return lectures.find(l => String(l.order) === String(id)) || null;
 }
 
+function pageHasAnyText(order) {
+    return (typeof lectureTextOrders !== 'undefined' && lectureTextOrders.includes(order)) ||
+        (typeof lectureTranscriptOrders !== 'undefined' && lectureTranscriptOrders.includes(order));
+}
+
 function extractYouTubeId(url) {
     if (!url) return null;
     const patterns = [
@@ -111,7 +116,7 @@ function initVideoPage() {
     }
 
     const readLink = document.getElementById('video-read-link');
-    if (typeof lectureTextOrders !== 'undefined' && lectureTextOrders.includes(lecture.order)) {
+    if (pageHasAnyText(lecture.order)) {
         readLink.href = `lecture.html?id=${lecture.order}`;
     } else {
         readLink.style.display = 'none';
@@ -142,28 +147,42 @@ async function initLecturePage() {
     const watchLink = document.getElementById('lecture-watch-link');
     watchLink.href = `video.html?id=${lecture.order}`;
 
-    const text = await loadLectureText(lecture.order);
+    const result = await loadLectureText(lecture.order);
     const textCard = document.getElementById('lecture-text-card');
     const banner = document.getElementById('text-unavailable');
-    if (text) {
-        renderTextParagraphs(document.getElementById('lecture-text'), text);
+    if (result) {
+        if (result.kind === 'auto') {
+            // Honest labeling: machine transcript, curated text pending
+            const note = document.getElementById('transcript-note');
+            if (note) note.style.display = 'block';
+        }
+        renderTextParagraphs(document.getElementById('lecture-text'), result.text);
         textCard.style.display = 'block';
     } else {
         banner.style.display = 'block';
     }
 }
 
-// JSON preferred; markdown (frontmatter + body) as fallback.
-// Returns plain text or null. Requires HTTP — over file:// fetch fails and
-// the page degrades to the "text unavailable" banner.
+// Text sources in priority order: curated JSON, auto transcript JSON,
+// curated markdown (frontmatter + body). Returns {text, kind} or null.
+// Requires HTTP — over file:// fetch fails and the page degrades to the
+// "text unavailable" banner.
 async function loadLectureText(order) {
     try {
         const jsonResponse = await fetch(`../data/texts/lecture_${order}.json`);
         if (jsonResponse.ok) {
             const data = await jsonResponse.json();
-            if (data.text && data.text.length > 100) return data.text;
+            if (data.text && data.text.length > 100) return { text: data.text, kind: 'curated' };
         }
-    } catch (e) { /* fall through to markdown */ }
+    } catch (e) { /* fall through */ }
+
+    try {
+        const trResponse = await fetch(`../data/texts/transcript_${order}.json`);
+        if (trResponse.ok) {
+            const data = await trResponse.json();
+            if (data.text && data.text.length > 100) return { text: data.text, kind: 'auto' };
+        }
+    } catch (e) { /* fall through */ }
 
     try {
         const mdResponse = await fetch(`../data/texts/lecture_${order}.md`);
@@ -172,7 +191,7 @@ async function loadLectureText(order) {
             // Strip YAML frontmatter (--- ... ---) if present, keep the body
             const parts = raw.split('---');
             const body = parts.length >= 3 ? parts.slice(2).join('---') : raw;
-            if (body.trim().length > 100) return body.trim();
+            if (body.trim().length > 100) return { text: body.trim(), kind: 'curated' };
         }
     } catch (e) { /* no text available */ }
 
