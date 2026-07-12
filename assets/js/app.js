@@ -308,14 +308,16 @@ function updateSortUI() {
 // Browser chrome color per theme (mobile address bar etc.)
 const THEME_COLORS = {
     'theme-yantra': '#ffffff',
-    'theme-forest': '#1A1C19',
+    'theme-paper': '#f5f1e8',
     'theme-sage': '#F4F7F6',
+    'theme-graphite': '#1e2126',
+    'theme-forest': '#1A1C19',
     'theme-obsidian': '#121212'
 };
 
 function applyTheme(themeName) {
     // Remove all theme classes
-    document.body.classList.remove('theme-yantra', 'theme-forest', 'theme-sage', 'theme-obsidian', 'light-theme');
+    document.body.classList.remove(...Object.keys(THEME_COLORS), 'light-theme');
 
     // Add new theme class
     document.body.classList.add(themeName);
@@ -361,15 +363,43 @@ function applyFont(fontName) {
     });
 }
 
+// Font size scaling: steps applied to the root font size, so every rem-based
+// size in the app scales together. Index 1 (100%) is the default.
+const FONT_SCALES = [0.9, 1, 1.15, 1.3];
+let fontScaleIndex = 1;
+
+function applyFontScale(index) {
+    fontScaleIndex = Math.min(Math.max(index, 0), FONT_SCALES.length - 1);
+    document.documentElement.style.fontSize = (FONT_SCALES[fontScaleIndex] * 100) + '%';
+    localStorage.setItem('fontScale', String(fontScaleIndex));
+
+    // Disable the buttons that can't step further
+    document.querySelectorAll('.size-btn').forEach(btn => {
+        const step = Number(btn.dataset.sizeStep);
+        if (step === -1) btn.disabled = fontScaleIndex === 0;
+        if (step === 1) btn.disabled = fontScaleIndex === FONT_SCALES.length - 1;
+    });
+}
+
+function setupFontScaleControl() {
+    document.querySelectorAll('.size-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const step = Number(btn.dataset.sizeStep);
+            applyFontScale(step === 0 ? 1 : fontScaleIndex + step);
+        });
+    });
+}
+
 function init() {
     // Load Theme Preference
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme && THEME_COLORS[savedTheme]) {
         applyTheme(savedTheme);
     } else {
-        // Follow the system preference on first visit
+        // Follow the system preference on first visit; Graphite is the gentler
+        // dark default (Obsidian stays available as an explicit choice)
         const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        applyTheme(prefersDark ? 'theme-obsidian' : 'theme-yantra');
+        applyTheme(prefersDark ? 'theme-graphite' : 'theme-yantra');
     }
 
     // Load Font Preference
@@ -379,6 +409,11 @@ function init() {
     } else {
         applyFont('font-arial'); // Default
     }
+
+    // Restore font size (validated: must be a known step index)
+    const savedScale = parseInt(localStorage.getItem('fontScale'), 10);
+    applyFontScale(Number.isInteger(savedScale) && FONT_SCALES[savedScale] !== undefined ? savedScale : 1);
+    setupFontScaleControl();
 
     // Restore View / Sort / Category (only accept values that are still valid)
     const savedView = localStorage.getItem('view');

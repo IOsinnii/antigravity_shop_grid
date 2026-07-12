@@ -5,7 +5,8 @@
 
 'use strict';
 
-const PAGE_THEMES = ['theme-yantra', 'theme-forest', 'theme-sage', 'theme-obsidian'];
+const PAGE_THEMES = ['theme-yantra', 'theme-paper', 'theme-sage', 'theme-graphite', 'theme-forest', 'theme-obsidian'];
+const PAGE_FONT_SCALES = [0.9, 1, 1.15, 1.3]; // must match FONT_SCALES in app.js
 
 function applyStoredAppearance() {
     const savedTheme = localStorage.getItem('theme');
@@ -13,11 +14,16 @@ function applyStoredAppearance() {
         document.body.classList.add(savedTheme);
     } else {
         const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        document.body.classList.add(prefersDark ? 'theme-obsidian' : 'theme-yantra');
+        document.body.classList.add(prefersDark ? 'theme-graphite' : 'theme-yantra');
     }
 
     const savedFont = localStorage.getItem('font');
     document.body.classList.add(savedFont === 'font-verdana' ? 'font-verdana' : 'font-arial');
+
+    const savedScale = parseInt(localStorage.getItem('fontScale'), 10);
+    if (Number.isInteger(savedScale) && PAGE_FONT_SCALES[savedScale] !== undefined) {
+        document.documentElement.style.fontSize = (PAGE_FONT_SCALES[savedScale] * 100) + '%';
+    }
 }
 
 function getLectureFromQuery() {

@@ -62,6 +62,27 @@ Known tradeoffs, accepted deliberately:
 
 ## Change log
 
+### 2026-07-12 — Phase 0: reading comfort (themes, font size, reading typography)
+`assets/css/style.css`, `index.html`, `assets/js/app.js`, `assets/js/page.js`,
+`pages/lecture.html`:
+- Two new themes designed for the older part of the audience: **Графит** (warm dark
+  gray `#1e2126` / off-white `#d3d7de` — capped contrast avoids the halation that makes
+  pure white-on-black Obsidian hard on astigmatic/older eyes) and **Бумага** (cream
+  `#f5f1e8` / warm ink `#2e2a24`, sepia accent — the "printed book" register).
+  Obsidian remains available as an explicit choice; the system-dark default is now
+  Graphite (main page and subpages agree).
+- **Font size control (А− / А / А+)** in the header: 4 steps (90/100/115/130%) applied
+  to the root font size so every rem-based size scales together; persisted as
+  `fontScale` in localStorage, validated on restore, applied on subpages via page.js;
+  stepper buttons disable at the ends of the range.
+- **Reading typography** for lecture texts: PT Serif (full Cyrillic; loaded only on
+  lecture.html), 1.125rem, line-height 1.75, measure capped at 70ch and centered.
+  UI stays sans — only long-form text switches register.
+- **Print stylesheet**: lecture pages print like a book chapter (chrome hidden,
+  black-on-white forced over any theme, 12pt serif) — this audience prints.
+Verified over HTTP: Paper theme + 130% on catalog and lecture page, controls persist,
+А+ disables at max, zero console errors.
+
 ### 2026-07-12 — Import antigravity engine as merge base
 `index.html`, `assets/{css,js}`, `data/`, `images/`, `.gitignore` copied verbatim from
 web-dev-antigravity at its post-cleanup state (cleaned database, deferred scripts,

@@ -66,6 +66,34 @@ body.theme-obsidian {
 
 }
 
+/* Theme: Graphite — soft dark. Warm dark gray instead of near-black and off-white
+   instead of pure white: capped contrast avoids the halation/glow effect that makes
+   Obsidian hard on older eyes and readers with astigmatism. */
+body.theme-graphite {
+    --bg-primary: #1e2126;
+    --bg-secondary: #262a31;
+    --bg-tertiary: #333944;
+    --text-primary: #d3d7de;
+    --text-secondary: #9aa1ac;
+    --accent-color: #8ab4d8;
+    --border-color: #3a404b;
+    --hover-color: #2d323b;
+}
+
+/* Theme: Paper — warm light, the "printed book" register. Cream background and
+   near-black warm ink instead of white/black; sepia accent. Aimed at long reading
+   sessions and the older audience. */
+body.theme-paper {
+    --bg-primary: #f5f1e8;
+    --bg-secondary: #faf7f0;
+    --bg-tertiary: #ebe5d6;
+    --text-primary: #2e2a24;
+    --text-secondary: #6b6353;
+    --accent-color: #8a6d3b;
+    --border-color: #ddd5c2;
+    --hover-color: #efe9dc;
+}
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -436,6 +464,15 @@ body {
 
 .theme-btn.theme-sage {
     background: #F4F7F6;
+}
+
+.theme-btn.theme-graphite {
+    background: #1e2126;
+}
+
+.theme-btn.theme-paper {
+    background: #f5f1e8;
+    border-color: #ddd5c2;
 }
 
 .view-toggles {
@@ -1001,4 +1038,98 @@ body.page {
     color: var(--text-secondary);
     font-size: 0.8rem;
     border-top: 1px solid var(--border-color);
+}
+
+/* ============================================================
+   Phase 0: reading comfort (font size control, reading
+   typography, print styles)
+   ============================================================ */
+
+/* --- Font size selector (header) --- */
+.font-size-selector {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.size-btn {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: #ddd;
+    padding: 0.2rem 0.6rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    min-width: 2.2rem;
+}
+
+.size-btn:hover:not(:disabled) {
+    color: #fff;
+    border-color: #fff;
+}
+
+.size-btn:disabled {
+    opacity: 0.35;
+    cursor: default;
+}
+
+.size-btn:focus-visible {
+    outline: 2px solid #fff;
+    outline-offset: 2px;
+}
+
+/* --- Reading typography for lecture texts --- */
+/* A serif face with good Cyrillic, a book-like measure and generous leading.
+   The UI keeps the sans stack; only the long-form text switches register. */
+.lecture-full-text {
+    font-family: 'PT Serif', Georgia, 'Times New Roman', serif;
+    font-size: 1.125rem;
+    line-height: 1.75;
+    max-width: 70ch;
+    margin: 0 auto;
+}
+
+.lecture-full-text p {
+    margin-bottom: 1.1em;
+}
+
+/* --- Print: lecture pages should print like a book chapter --- */
+@media print {
+
+    .app-header,
+    .page-footer,
+    .back-button,
+    .page-actions,
+    .btn-action {
+        display: none !important;
+    }
+
+    body,
+    body.page {
+        background: #fff !important;
+        color: #000 !important;
+        height: auto;
+    }
+
+    .page-card {
+        background: #fff !important;
+        border: none !important;
+        padding: 0 !important;
+        margin-bottom: 1.5rem !important;
+        color: #000 !important;
+    }
+
+    .page-title,
+    .page-subtitle,
+    .page-meta,
+    .page-text,
+    .lecture-full-text {
+        color: #000 !important;
+    }
+
+    .lecture-full-text {
+        max-width: 100%;
+        font-size: 12pt;
+        line-height: 1.6;
+    }
 }
