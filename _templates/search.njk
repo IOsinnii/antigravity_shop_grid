@@ -1,0 +1,73 @@
+---
+permalink: "search/index.html"
+---
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Полнотекстовый поиск по лекциям Сергея Бугаева — названия, описания и полные тексты">
+    <title>Поиск по лекциям — Сергей Бугаев</title>
+    <link rel="icon" href="../images/cropped-logo-yantra_160x160.jpg" type="image/jpg">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link href="../pagefind/pagefind-ui.css" rel="stylesheet">
+    <script src="../pagefind/pagefind-ui.js" defer></script>
+    <style>
+        /* Map Pagefind UI onto the active theme */
+        #search {
+            --pagefind-ui-primary: var(--accent-color);
+            --pagefind-ui-text: var(--text-primary);
+            --pagefind-ui-background: var(--bg-secondary);
+            --pagefind-ui-border: var(--border-color);
+            --pagefind-ui-tag: var(--bg-tertiary);
+            --pagefind-ui-border-radius: 8px;
+            --pagefind-ui-font: var(--font-family);
+        }
+    </style>
+</head>
+
+<body class="page" data-page="search">
+    <header class="app-header page-header">
+        <a href="../index.html" class="logo">
+            <img src="../images/cropped-logo-yantra_160x160.jpg" alt="Логотип">
+            <h1>Сергей Бугаев<br>Библиотека лекций</h1>
+        </a>
+    </header>
+
+    <main class="page-main">
+        <a href="../index.html" class="back-button">← Вернуться к каталогу</a>
+
+        <div class="page-card">
+            <h1 class="page-title">Поиск по лекциям</h1>
+            <p class="page-meta">Ищет по названиям, описаниям и полным текстам всех лекций —
+                включая автоматические расшифровки.</p>
+            <div id="search"></div>
+        </div>
+    </main>
+
+    <footer class="page-footer">
+        <p>&copy; 2025 Личная библиотека лекций. Все права защищены.</p>
+    </footer>
+
+    <script src="../assets/js/page.js" defer></script>
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            new PagefindUI({
+                element: '#search',
+                showSubResults: true,
+                showImages: false,
+                translations: {
+                    placeholder: 'Поиск по всем текстам…',
+                    zero_results: 'Ничего не найдено по запросу «[SEARCH_TERM]»',
+                    clear_search: 'Очистить',
+                    load_more: 'Показать ещё',
+                    many_results: '[COUNT] результатов по запросу «[SEARCH_TERM]»',
+                    one_result: '[COUNT] результат по запросу «[SEARCH_TERM]»'
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

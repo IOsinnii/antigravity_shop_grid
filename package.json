@@ -4,10 +4,11 @@
   "private": true,
   "description": "Лекторий Сергея Бугаева — merged prototype. SSG layer: pre-rendered per-lecture pages.",
   "scripts": {
-    "build": "eleventy",
+    "build": "eleventy && pagefind --site _site",
     "serve": "eleventy --serve"
   },
   "devDependencies": {
-    "@11ty/eleventy": "^3.0.0"
+    "@11ty/eleventy": "^3.0.0",
+    "pagefind": "^1.5.2"
   }
 }

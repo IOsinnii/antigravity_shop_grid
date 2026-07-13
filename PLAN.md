@@ -210,3 +210,16 @@ Verified: №150 (2020) and №1 (1995) render transcripts under the banner; con
   document: player + metadata + description + text (~40KB avg, 7.7MB total).
   The «Читать» action became an in-page anchor. PT Serif loads only on pages
   that have a text.
+
+### 2026-07-13 — Phase 4: Pagefind full-text search over the static pages
+`package.json` (+pagefind, build = eleventy && pagefind), `_templates/search.njk`,
+`_templates/lecture-pages.njk`:
+- `/search/` page with Pagefind UI (Russian translations, themed via
+  `--pagefind-ui-*` variables mapped onto the site palette) searching titles,
+  descriptions and FULL texts of all 194 lectures — the payoff of Phase 1:
+  18k-stem Russian index, ~2MB of fragments loaded on demand, zero server.
+- `data-pagefind-body` on the lecture `<main>` scopes indexing (194 pages, search
+  page excluded); `data-pagefind-meta="title"` on the lecture h1 — Pagefind takes
+  result titles from the first page h1 otherwise, which is the header logo.
+- Verified via the Pagefind JS API and UI on a clean origin: transcript-only
+  content is findable, results carry lecture titles and /lectures/N/ URLs.

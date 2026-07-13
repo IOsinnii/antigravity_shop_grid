@@ -49,7 +49,10 @@ permalink: "lectures/{{ lec.order }}/index.html"
         </a>
     </header>
 
-    <main class="page-main">
+    <!-- data-pagefind-body scopes search indexing to lecture content: the header
+         logo h1 stops hijacking result titles, and pages without this attribute
+         (the search page itself) drop out of the index -->
+    <main class="page-main" data-pagefind-body>
         <a href="../../index.html" class="back-button">← Вернуться к каталогу</a>
 
         {% if lec.youtubeId %}
@@ -62,7 +65,7 @@ permalink: "lectures/{{ lec.order }}/index.html"
         {% endif %}
 
         <div class="page-card">
-            <h1 class="page-title">{{ lec.title }}</h1>
+            <h1 class="page-title" data-pagefind-meta="title">{{ lec.title }}</h1>
             <div class="page-meta">
                 <span>№{{ lec.order }}</span>
                 <span>{{ lec.date_standard or lec.date }}</span>
