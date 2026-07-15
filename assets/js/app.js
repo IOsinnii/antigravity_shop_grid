@@ -3,7 +3,8 @@ const appState = {
     view: 'table', // 'table' | 'grid'
     category: 'all',
     search: '',
-    theme: 'theme-obsidian',
+   // theme: 'theme-obsidian',
+   theme: 'theme-yantra',
     font: 'font-arial',
     sort: {
         field: 'date', // 'date' | 'duration'
