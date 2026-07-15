@@ -5,7 +5,10 @@
 
 'use strict';
 
-const PAGE_THEMES = ['theme-yantra', 'theme-paper', 'theme-sage', 'theme-graphite', 'theme-forest', 'theme-obsidian'];
+// Original: included Obsidian in page themes. Obsidian has been removed from the
+// runtime list; the original array is preserved below as a comment for traceability.
+// const PAGE_THEMES = ['theme-yantra', 'theme-paper', 'theme-sage', 'theme-graphite', 'theme-forest', 'theme-obsidian'];
+const PAGE_THEMES = ['theme-yantra', 'theme-paper', 'theme-sage', 'theme-graphite', 'theme-forest'];
 const PAGE_FONT_SCALES = [0.9, 1, 1.15, 1.3]; // must match FONT_SCALES in app.js
 
 function applyStoredAppearance() {
