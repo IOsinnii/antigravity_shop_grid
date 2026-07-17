@@ -2,3 +2,12 @@
 *Zone.Identifier
 node_modules/
 _site/
+
+# API Keys & Secrets
+.env
+.env.local
+.env.*.local
+
+# IDE & Tool configurations
+.cursorrules
+.vscode/
